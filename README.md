@@ -1,31 +1,34 @@
 # Cable Billing Dashboard
 
-A modern, responsive office dashboard for managing cable billing operations, including colonies, customers, and payments. Built with React, Tailwind CSS, and Axios, this project provides a clean UI and modular code structure for easy maintenance and scalability.
+A modern, responsive office dashboard for managing cable billing operations, including colonies, customers, and payments. Built with a MERN stack (MongoDB, Express, React, Node.js), this project provides a clean UI and modular code structure for easy maintenance and scalability.
 
 ---
 
 ## Features
 
-- **Dashboard Overview:**  
-  View key stats (colonies, customers, total payments) and recent payment activity at a glance.
+- **Dynamic Dashboard Overview:**
+  - View key stats (total colonies, total customers, total revenue).
+  - A dynamic bar chart visualizes payments over time.
+  - See a list of top customers by payment amount.
+  - View recent payment activity at a glance.
 
 - **Colonies Management:**  
-  Add, view, and manage colonies.
+  - Add, view, and manage colonies.
 
 - **Customers Management:**  
-  Add, view, and manage customers, linked to colonies.
+  - Add, view, and manage customers, linked to colonies.
 
 - **Payments Management:**  
-  Record and view payments, linked to customers.
+  - Record and view payments, linked to customers.
 
 - **Reports:**  
-  Filter payments by month and year, and see totals.
+  - Filter payments by month and year, and see totals.
 
 - **Settings:**  
-  Placeholder for company and admin settings.
+  - Placeholder for company and admin settings.
 
 - **Responsive Design:**  
-  Works well on desktop, tablet, and mobile.
+  - Works well on desktop, tablet, and mobile.
 
 ---
 
@@ -35,43 +38,50 @@ A modern, responsive office dashboard for managing cable billing operations, inc
   - React (with functional components and hooks)
   - React Router v6
   - Tailwind CSS
-  - Axios
+  - Axios for API requests
+  - Recharts for charts
   - [Heroicons](https://heroicons.com/) for icons
 
 - **Backend:**  
-  - Expects a REST API at `http://localhost:5000/api`  
-    (with endpoints for `/colonies`, `/customers`, `/payments`)
+  - Node.js with Express.js
+  - MongoDB with Mongoose for object data modeling
+  - JWT for authentication (coming soon)
+  - `dotenv` for environment variables
 
 ---
 
 ## Project Structure
 
+The project is organized into two main directories: `frontend` and `backend`.
+
+### Frontend
 ```
 frontend/
 ├── src/
 │   ├── components/
-│   │   ├── ColonyForm.jsx
-│   │   ├── ColonyList.jsx
-│   │   ├── CustomerForm.jsx
-│   │   ├── CustomerList.jsx
-│   │   ├── PaymentForm.jsx
-│   │   ├── PaymentList.jsx
-│   │   ├── Sidebar.jsx
-│   │   ├── Header.jsx
-│   │   ├── Modal.jsx
-│   │   └── StatsCard.jsx
+│   │   ├── ... (reusable components like Sidebar, Header, StatsCard)
 │   ├── pages/
 │   │   ├── Dashboard.jsx
-│   │   ├── Colonies.jsx
-│   │   ├── Customers.jsx
-│   │   ├── Payments.jsx
-│   │   ├── Reports.jsx
-│   │   └── Settings.jsx
+│   │   ├── ... (other pages)
 │   ├── App.jsx
-│   └── index.js
-├── tailwind.config.js
+│   └── main.jsx
 ├── package.json
-└── README.md
+└── ... (other config files)
+```
+
+### Backend
+```
+backend/
+├── models/
+│   ├── Colony.js
+│   ├── Customer.js
+│   └── Payment.js
+├── routes/
+│   ├── colonyRoutes.js
+│   ├── customerRoutes.js
+│   └── paymentRoutes.js
+├── server.js
+└── package.json
 ```
 
 ---
@@ -82,44 +92,32 @@ frontend/
 
 - Node.js (v16+ recommended)
 - npm
+- MongoDB (local or a cloud-hosted instance like MongoDB Atlas)
 
 ### Installation
 
 1. **Clone the repository:**
    ```
    git clone https://github.com/yourusername/cable-billing.git
-   cd cable-billing/frontend
+   cd cable-billing
    ```
 
-2. **Install dependencies:**
-   ```
-   npm install
-   ```
+2. **Backend Setup:**
+   - Navigate to the `backend` directory: `cd backend`
+   - Install dependencies: `npm install`
+   - Create a `.env` file in the `backend` directory with the following variables:
+     ```
+     MONGO_URI=<your_mongodb_connection_string>
+     PORT=5000
+     ```
+   - Start the backend server: `npm start`
 
-3. **Install Tailwind CSS (if not already):**
-   ```
-   npm install -D tailwindcss postcss autoprefixer
-   npx tailwindcss init -p
-   ```
-   Add Tailwind to your `src/index.css`:
-   ```css
-   @tailwind base;
-   @tailwind components;
-   @tailwind utilities;
-   ```
+3. **Frontend Setup:**
+   - Navigate to the `frontend` directory: `cd ../frontend`
+   - Install dependencies: `npm install`
+   - Start the frontend development server: `npm run dev`
 
-4. **Install Heroicons:**
-   ```
-   npm install @heroicons/react
-   ```
-
-5. **Start the development server:**
-   ```
-   npm start
-   ```
-
-6. **Backend API:**  
-   Make sure your backend API is running at `http://localhost:5000/api`.
+The application should now be running, with the frontend at `http://localhost:5173` and the backend at `http://localhost:5000`.
 
 ---
 
@@ -127,21 +125,18 @@ frontend/
 
 - Use the sidebar to navigate between Dashboard, Colonies, Customers, Payments, Reports, and Settings.
 - Add or view colonies, customers, and payments.
+- The dashboard provides a comprehensive overview of the business.
 - Filter payments in the Reports page.
-- Settings page is a placeholder for future enhancements.
 
 ---
 
 ## Customization
 
 - **API URL:**  
-  Change the `API` constant in each page/component if your backend runs on a different URL.
+  The frontend expects the backend to be running on `http://localhost:5000`. If you change the port, update the `API` constant in the frontend components.
 
 - **Styling:**  
-  Modify Tailwind classes or extend the Tailwind config for custom themes.
-
-- **Components:**  
-  Add more features (edit/delete, search, pagination, etc.) by extending the modular components.
+  Modify Tailwind classes in the React components or extend the Tailwind config (`frontend/tailwind.config.js`) for custom themes.
 
 ---
 
@@ -154,12 +149,3 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## License
 
 [MIT](LICENSE)
-
----
-
-## Acknowledgements
-
-- [React](https://reactjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Heroicons](https://heroicons.com/)
-- [Axios](https://axios-http.com/)
