@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function CustomerList({ customers }) {
   return (
@@ -18,7 +19,9 @@ function CustomerList({ customers }) {
             <th className="border px-2 py-1">Type</th>
             <th className="border px-2 py-1">Plan</th>
             <th className="border px-2 py-1">Charge</th>
+            <th className="border px-2 py-1">Outstanding Balance</th>
             <th className="border px-2 py-1">Status</th>
+            <th className="border px-2 py-1">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -35,7 +38,13 @@ function CustomerList({ customers }) {
               <td className="border px-2 py-1">{c.connection_type}</td>
               <td className="border px-2 py-1">{c.plan}</td>
               <td className="border px-2 py-1">{c.monthly_charge}</td>
+              <td className="border px-2 py-1">₹{c.outstanding_balance}</td>
               <td className="border px-2 py-1">{c.status}</td>
+              <td className="border px-2 py-1">
+                <Link to={`/payment-history/${c._id}`} className="text-blue-500 hover:underline">
+                  View History
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

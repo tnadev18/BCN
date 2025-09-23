@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import PaymentsChart from "../components/PaymentsChart";
 import TopCustomers from "../components/TopCustomers";
 import RecentPayments from "../components/RecentPayments";
+import MonthlyRevenue from "../components/MonthlyRevenue";
 import { UserGroupIcon, HomeIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
 
 const API = "http://localhost:5000/api";
@@ -57,8 +58,9 @@ function Dashboard() {
         <div className="xl:col-span-2">
           <PaymentsChart payments={payments} />
         </div>
-        <div>
+        <div className="flex flex-col gap-8">
           <TopCustomers payments={payments} />
+          <MonthlyRevenue />
         </div>
       </div>
       <RecentPayments payments={payments} />

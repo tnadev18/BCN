@@ -12,6 +12,7 @@ const customerSchema = new mongoose.Schema({
   connection_type: String,
   plan: String,
   monthly_charge: Number,
+  outstanding_balance: { type: Number, default: 0 },
   status: { type: String, default: "Active" }
 });
 
