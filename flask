@@ -1,0 +1,36 @@
+from flask import Flask, request, send_file
+import paramiko
+import os
+
+app = Flask(__name__)
+
+@app.route('/run-job', methods=['POST'])
+def run_job():
+    # Extract parameters from Power Automate request
+    data = request.json
+    server_ip = data.get("server_ip")
+    username = data.get("username")
+    password = data.get("password")
+    sql_command = data.get("sql_command")
+
+    # SSH into server
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(server_ip, username=username, password=password)
+
+    # Run database command via sqlplus or other DB client
+    spool_file = "spool.html"
+    cmd = f'echo "{sql_command}" | sqlplus -s user/pass@DB > {spool_file}'
+    stdin, stdout, stderr = ssh.exec_command(cmd)
+    stdout.channel.recv_exit_status()
+
+    ssh.close()
+
+    # Send the file back to requester
+    if os.path.exists(spool_file):
+        return send_file(spool_file, mimetype="text/html")
+    else:
+        return {"error": "Failed to generate spool file"}, 500
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=8080)
